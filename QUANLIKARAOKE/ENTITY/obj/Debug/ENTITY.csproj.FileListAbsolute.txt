@@ -1,0 +1,7 @@
+C:\Users\ASUS\Desktop\HOANG\QUANLIKARAOKE\ENTITY\bin\Debug\ENTITY.dll
+C:\Users\ASUS\Desktop\HOANG\QUANLIKARAOKE\ENTITY\bin\Debug\ENTITY.pdb
+C:\Users\ASUS\Desktop\HOANG\QUANLIKARAOKE\ENTITY\obj\Debug\ENTITY.csproj.AssemblyReference.cache
+C:\Users\ASUS\Desktop\HOANG\QUANLIKARAOKE\ENTITY\obj\Debug\ENTITY.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\HOANG\QUANLIKARAOKE\ENTITY\obj\Debug\ENTITY.dll
+C:\Users\ASUS\Desktop\HOANG\QUANLIKARAOKE\ENTITY\obj\Debug\ENTITY.pdb
+C:\Users\ASUS\Desktop\HOANG\QUANLIKARAOKE\ENTITY\bin\Debug\ENTITY.dll.config
