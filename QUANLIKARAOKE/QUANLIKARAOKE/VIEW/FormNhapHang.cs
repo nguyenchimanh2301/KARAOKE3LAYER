@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using KARAOKEBUS;
 
 namespace QUANLIKARAOKE.VIEW
 {
@@ -21,6 +22,7 @@ namespace QUANLIKARAOKE.VIEW
         private string nhanvien = "admin";
         private karaokeDataContext db;
         private DataGridViewRow r;
+        private HoadonnhapBLL  bll = new HoadonnhapBLL();
         public void loaddata()
         {
             var lp = from o in db.HoaDonNhaps
@@ -109,8 +111,9 @@ namespace QUANLIKARAOKE.VIEW
 
                 order.NguoiTao = nhanvien;
                 order.NgayTao = DateTime.Now;
-                db.HoaDonNhaps.InsertOnSubmit(order);
-                db.SubmitChanges();
+                bll.themHoaDonNhap(order);
+                /*db.HoaDonNhaps.InsertOnSubmit(order);
+                db.SubmitChanges();*/
                 var idhdnhap = db.HoaDonNhaps.Max(x => x.ID);
                 /*  MessageBox.Show("Thêm mới thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);*/
                 new FormChititetHoaDonNhap(idhdnhap,0).ShowDialog();

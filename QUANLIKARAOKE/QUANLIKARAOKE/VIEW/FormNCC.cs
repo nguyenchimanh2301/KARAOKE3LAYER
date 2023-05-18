@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ENTITY;
+using KARAOKEBUS;
 namespace QUANLIKARAOKE.VIEW
 {
     public partial class FormNCC : Form
@@ -19,6 +20,7 @@ namespace QUANLIKARAOKE.VIEW
         private string nhanvien = "admin";
         private karaokeDataContext db;
         private DataGridViewRow r;
+        private NhaCungCapBLL bll = new NhaCungCapBLL();
         public void loaddata()
         {
             var lp = (from t in db.NhaCungCaps
@@ -53,8 +55,9 @@ namespace QUANLIKARAOKE.VIEW
             lp.Email =  txtemail.Text;
             lp.DienThoai = txtsdt.Text;
             lp.NguoiTao = nhanvien;
-            db.NhaCungCaps.InsertOnSubmit(lp);
-            db.SubmitChanges();
+            bll.themNhaCungCap(lp);
+          /*  db.NhaCungCaps.InsertOnSubmit(lp);
+            db.SubmitChanges();*/
             loaddata();
             MessageBox.Show("Thêm mới thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             txtdiachi.Text = null;
@@ -108,8 +111,9 @@ namespace QUANLIKARAOKE.VIEW
                 try
                 {
                     var dvt = db.NhaCungCaps.SingleOrDefault(x => x.ID == int.Parse(r.Cells["id"].Value.ToString()));
-                    db.NhaCungCaps.DeleteOnSubmit(dvt);
-                    db.SubmitChanges();
+                    bll.xoa(int.Parse(r.Cells["id"].Value.ToString()));
+                    /*  db.NhaCungCaps.DeleteOnSubmit(dvt);
+                    db.SubmitChanges();*/
                     MessageBox.Show("Xóa thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     loaddata();
                     r = null;

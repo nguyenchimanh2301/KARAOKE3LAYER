@@ -22,10 +22,10 @@ namespace KARAOKEDAL
             db.SubmitChanges();
 
         }
-        public void xoa(NhaCungCap id)
+        public void xoa(int id)
         {
-            /*       var dvt = db.NhaCungCaps.SingleOrDefault(x => x.ID == id);*/
-            db.NhaCungCaps.DeleteOnSubmit(id);
+            var dvt = db.NhaCungCaps.SingleOrDefault(x => x.ID == id);
+            db.NhaCungCaps.DeleteOnSubmit(dvt);
             db.SubmitChanges();
 
         }

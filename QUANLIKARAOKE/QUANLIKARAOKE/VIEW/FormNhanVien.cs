@@ -146,7 +146,10 @@ namespace QUANLIKARAOKE.VIEW
             {
                 try
                 {
+
                     var dvt = db.NhanViens.SingleOrDefault(x => x.Username == r.Cells["username"].Value.ToString());
+                    var us = db.TinhLuongs.SingleOrDefault(x => x.IDusername == r.Cells["username"].Value.ToString());
+                    db.TinhLuongs.DeleteOnSubmit(us);
                     db.NhanViens.DeleteOnSubmit(dvt);
                     db.SubmitChanges();
                     MessageBox.Show("Xóa thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);

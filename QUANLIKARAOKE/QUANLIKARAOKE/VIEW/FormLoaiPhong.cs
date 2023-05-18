@@ -137,6 +137,7 @@ namespace QUANLIKARAOKE.VIEW
                 {
                     var dvt = db.LoaiPhongs.SingleOrDefault(x => x.ID == int.Parse(r.Cells["id"].Value.ToString()));
                     bll.xoa(int.Parse(r.Cells["id"].Value.ToString()));
+
                     /*     db.LoaiPhongs.DeleteOnSubmit(dvt);
                     db.SubmitChanges();*/
                     MessageBox.Show("Xóa thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);

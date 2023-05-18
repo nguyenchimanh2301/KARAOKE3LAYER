@@ -19,9 +19,8 @@ namespace KARAOKEBUS
         {
             dal.suaDonViTinh(mh);
         }
-        public void xoa(DonViTinh id)
+        public void xoa(int id)
         {
-            /*       var dvt = db.DonViTinhs.SingleOrDefault(x => x.ID == id);*/
             dal.xoa(id);
         }
         public List<DonViTinh> Timkiem(string mh)

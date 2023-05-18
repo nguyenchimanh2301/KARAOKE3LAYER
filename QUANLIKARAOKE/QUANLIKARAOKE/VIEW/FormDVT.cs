@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ENTITY;
-
+using KARAOKEBUS;
 namespace QUANLIKARAOKE.VIEW
 {
     public partial class FormDVT : Form
@@ -18,6 +18,7 @@ namespace QUANLIKARAOKE.VIEW
             InitializeComponent();
         }
         private karaokeDataContext db;
+        private DVTBLL bll = new DVTBLL();
         private string nhanvien = "admin";
         private void FormDVT_Load(object sender, EventArgs e)
         {
@@ -53,8 +54,9 @@ namespace QUANLIKARAOKE.VIEW
                 dvt.TenDVT = txtdvt.Text;
                 dvt.NguoiTao = nhanvien;
                 dvt.NgayTao = DateTime.Now;
-                db.DonViTinhs.InsertOnSubmit(dvt);
-                db.SubmitChanges();
+                bll.themDonViTinh(dvt);
+               /* db.DonViTinhs.InsertOnSubmit(dvt);
+                db.SubmitChanges();*/
                 MessageBox.Show("Thêm mới thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 showdata();
             }
@@ -108,8 +110,9 @@ namespace QUANLIKARAOKE.VIEW
             if (MessageBox.Show("Bạn thật sự muốn xóa Đơn vị tính " + r.Cells["TenDVT"].Value.ToString()+"?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question)==DialogResult.Yes)
             {
                 var dvt = db.DonViTinhs.SingleOrDefault(x => x.ID == int.Parse(r.Cells["id"].Value.ToString()));
-                db.DonViTinhs.DeleteOnSubmit(dvt);
-                db.SubmitChanges();
+                bll.xoa(int.Parse(r.Cells["id"].Value.ToString()));
+                /*  db.DonViTinhs.DeleteOnSubmit(dvt);
+                db.SubmitChanges();*/
                 MessageBox.Show("Xóa thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 showdata();
                 r = null;

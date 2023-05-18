@@ -20,7 +20,7 @@ namespace KARAOKEBUS
             dal.suaNhaCungCap(mh);
 
         }
-        public void xoa(NhaCungCap id)
+        public void xoa(int id)
         {
             /*       var dvt = db.NhaCungCaps.SingleOrDefault(x => x.ID == id);*/
             dal.xoa(id);
