@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KARAOKEDAL
 {
-    internal class NccDAL
+    public class NccDAL
     {
         public karaokeDataContext db = new karaokeDataContext();
 

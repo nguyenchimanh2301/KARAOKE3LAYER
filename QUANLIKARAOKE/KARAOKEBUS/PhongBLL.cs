@@ -19,7 +19,7 @@ namespace KARAOKEBUS
             dal.suaPhong(mh);
 
         }
-        public void xoa(Phong id)
+        public void xoa(int id)
         {
             /*       var dvt = db.Phongs.SingleOrDefault(x => x.ID == id);*/
             dal.xoa(id);

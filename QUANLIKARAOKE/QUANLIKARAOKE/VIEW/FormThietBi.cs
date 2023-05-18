@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ENTITY;
-
+using KARAOKEBUS;
 namespace QUANLIKARAOKE.VIEW
 {
     public partial class FormThietBi : Form
@@ -19,7 +19,7 @@ namespace QUANLIKARAOKE.VIEW
         }
         private karaokeDataContext db;
         private DataGridViewRow r;
-
+        private ThietBiBLL bll = new ThietBiBLL();
         private void FormThietBi_Load(object sender, EventArgs e)
         {
             db = new karaokeDataContext();
@@ -70,8 +70,9 @@ namespace QUANLIKARAOKE.VIEW
                 try
                 {
                     var dvt = db.ThietBis.SingleOrDefault(x => x.ID == int.Parse(r.Cells["id"].Value.ToString()));
-                    db.ThietBis.DeleteOnSubmit(dvt);
-                    db.SubmitChanges();
+                    bll.xoa(int.Parse(r.Cells["id"].Value.ToString()));
+                    /*  db.ThietBis.DeleteOnSubmit(dvt);
+                    db.SubmitChanges();*/
                     MessageBox.Show("Xóa thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     showdata();
                     r = null;
@@ -110,8 +111,9 @@ namespace QUANLIKARAOKE.VIEW
             mh.Mausac = txtmausac.Text;
             mh.Kichthuoc = txtkichco.Text;
             mh.DonGia = int.Parse(txtdongia.Text);
-            db.ThietBis.InsertOnSubmit(mh);
-            db.SubmitChanges();
+            bll.themThietBi(mh);
+           /* db.ThietBis.InsertOnSubmit(mh);
+            db.SubmitChanges();*/
             showdata();
             MessageBox.Show("Thêm mới thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             txtdongia.Text = "0";
@@ -128,18 +130,8 @@ namespace QUANLIKARAOKE.VIEW
             }
             else
             {
-                var mt = from tb in db.ThietBis.Where(x => x.TenThietBi.Contains(txtname.Text))
-                         join h in db.LoaiThietBis on tb.IDLoaiTB equals h.ID
-                         select new
-                         {
-                             tb.ID,
-                             h.TenLoaiTB,
-                             tb.TenThietBi,
-                             tb.Mausac,
-                             tb.Kichthuoc,
-                             tb.DonGia
-
-                         };
+               
+                var mt = bll.Timkiem(txtname.Text);
                 dgvmt.DataSource = null;
                 dgvmt.DataSource = mt;
             }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KARAOKEDAL
 {
-    internal class HoadonNhapDAL
+    public class HoadonNhapDAL
     {
         public karaokeDataContext db = new karaokeDataContext();
 

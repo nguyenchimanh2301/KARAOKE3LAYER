@@ -22,16 +22,27 @@ namespace KARAOKEDAL
             db.SubmitChanges();
 
         }
-        public void xoa(ThietBi id)
+        public void xoa(int id)
         {
-            /*       var dvt = db.ThietBis.SingleOrDefault(x => x.ID == id);*/
-            db.ThietBis.DeleteOnSubmit(id);
+            var dvt = db.ThietBis.SingleOrDefault(x => x.ID == id);
+            db.ThietBis.DeleteOnSubmit(dvt);
             db.SubmitChanges();
 
         }
-        public List<ThietBi> Timkiem(string mh)
+        public IQueryable Timkiem(string mh)
         {
-            var mt = db.ThietBis.Where(x => x.TenThietBi.Contains(mh)).ToList();
+            var mt = from tb in db.ThietBis.Where(x => x.TenThietBi.Contains(mh))
+                     join h in db.LoaiThietBis on tb.IDLoaiTB equals h.ID
+                     select new
+                     {
+                         tb.ID,
+                         h.TenLoaiTB,
+                         tb.TenThietBi,
+                         tb.Mausac,
+                         tb.Kichthuoc,
+                         tb.DonGia
+
+                     };
             return mt;
         }
     }

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ENTITY;
 using KARAOKEBUS;
-using KARAOKEDAL;
 
 namespace QUANLIKARAOKE.VIEW
 {

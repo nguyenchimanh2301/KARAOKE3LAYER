@@ -19,11 +19,11 @@ namespace KARAOKEBUS
         {
             dal.suaThietBi(mh);
         }
-        public void xoa(ThietBi mh)
+        public void xoa(int mh)
         {
             dal.xoa(mh);
         }
-        public List<ThietBi> Timkiem(string mh)
+        public IQueryable Timkiem(string mh)
         {
             return dal.Timkiem(mh);
         }

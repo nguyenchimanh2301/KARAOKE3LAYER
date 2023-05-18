@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ENTITY;
+using KARAOKEBUS;
 
 namespace QUANLIKARAOKE.VIEW
 {
@@ -18,7 +19,7 @@ namespace QUANLIKARAOKE.VIEW
             InitializeComponent();
         }
         private karaokeDataContext db;
-
+        private LoaiTBBLL bll = new LoaiTBBLL();
 
         private void FormLoaiTB_Load(object sender, EventArgs e)
         {
@@ -54,8 +55,9 @@ namespace QUANLIKARAOKE.VIEW
             }
             var lp = new LoaiThietBi();
             lp.TenLoaiTB = txtname.Text;
-            db.LoaiThietBis.InsertOnSubmit(lp);
-            db.SubmitChanges();
+            bll.themLoaiThietBi(lp);
+         /*   db.LoaiThietBis.InsertOnSubmit(lp);
+            db.SubmitChanges();*/
             loaddata();
             MessageBox.Show("Thêm mới thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             txtname.Text = null;
@@ -93,8 +95,8 @@ namespace QUANLIKARAOKE.VIEW
                 try
                 {
                     var dvt = db.LoaiThietBis.SingleOrDefault(x => x.ID == int.Parse(r.Cells["id"].Value.ToString()));
-                    db.LoaiThietBis.DeleteOnSubmit(dvt);
-                    db.SubmitChanges();
+                    bll.xoa(int.Parse(r.Cells["id"].Value.ToString()));
+                    /*db.SubmitChanges();*/
                     MessageBox.Show("Xóa thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     loaddata();
                     r = null;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KARAOKEDAL
 {
-    internal class LoaiTBDAL
+    public class LoaiTBDAL
     {
         public karaokeDataContext db = new karaokeDataContext();
 
@@ -22,10 +22,10 @@ namespace KARAOKEDAL
             db.SubmitChanges();
 
         }
-        public void xoa(LoaiThietBi id)
+        public void xoa(int id)
         {
-            /*       var dvt = db.LoaiThietBis.SingleOrDefault(x => x.ID == id);*/
-            db.LoaiThietBis.DeleteOnSubmit(id);
+            var dvt = db.LoaiThietBis.SingleOrDefault(x => x.ID == id);
+            db.LoaiThietBis.DeleteOnSubmit(dvt);
             db.SubmitChanges();
 
         }

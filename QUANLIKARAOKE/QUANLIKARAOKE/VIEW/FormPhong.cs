@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using KARAOKEBUS;
 namespace QUANLIKARAOKE.VIEW
 {
     public partial class FormPhong : Form
@@ -17,6 +17,7 @@ namespace QUANLIKARAOKE.VIEW
         {
             InitializeComponent();
         }
+        PhongBLL bll = new PhongBLL();
         private karaokeDataContext db;
         private string nhanvien = "admin";
         private DataGridViewRow r;
@@ -96,8 +97,9 @@ namespace QUANLIKARAOKE.VIEW
             lp.NgayTao = DateTime.Now;
             lp.SucChua = int.Parse(txtsucchua.Text);
             lp.IDLoaiPhong = int.Parse(cblp.SelectedValue.ToString());
-            db.Phongs.InsertOnSubmit(lp);
-            db.SubmitChanges();
+            bll.themPhong(lp);
+        /*    db.Phongs.InsertOnSubmit(lp);
+            db.SubmitChanges();*/
             loaddata();
             MessageBox.Show("Thêm mới thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             txtsucchua.Text = "0";
@@ -151,8 +153,9 @@ namespace QUANLIKARAOKE.VIEW
                 try
                 {
                     var dvt = db.Phongs.SingleOrDefault(x => x.ID == int.Parse(r.Cells["id"].Value.ToString()));
-                    db.Phongs.DeleteOnSubmit(dvt);
-                    db.SubmitChanges();
+                    /*db.Phongs.DeleteOnSubmit(dvt);
+                    db.SubmitChanges();*/
+                    bll.xoa(int.Parse(r.Cells["id"].Value.ToString()));
                     MessageBox.Show("Xóa thành công", "Successfully!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     loaddata();
                     r = null;

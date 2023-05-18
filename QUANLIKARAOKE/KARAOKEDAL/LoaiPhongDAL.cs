@@ -23,10 +23,10 @@ namespace KARAOKEDAL
             db.SubmitChanges();
 
         }
-        public void xoa(LoaiPhong id)
+        public void xoa(int id)
         {
-     /*       var dvt = db.LoaiPhongs.SingleOrDefault(x => x.ID == id);*/
-            db.LoaiPhongs.DeleteOnSubmit(id);
+            var dvt = db.LoaiPhongs.SingleOrDefault(x => x.ID == id);
+            db.LoaiPhongs.DeleteOnSubmit(dvt);
             db.SubmitChanges();
 
         }
