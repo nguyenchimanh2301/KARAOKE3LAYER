@@ -139,6 +139,8 @@ namespace QUANLIKARAOKE.VIEW
                 idp = int.Parse(l.SelectedItems[0].Name);
                 tenphong = l.SelectedItems[0].Text.ToUpper();
                 txtphong.Text = tenphong;
+                var tt = db.Phongs.FirstOrDefault(x => x.ID == idp);
+                label1.Text = tt.TrangThai == 0 ? "CÒN TRỐNG" : "ĐANG SỬ DỤNG";
                 if ((bool)l.SelectedItems[0].Tag)
                 {
                     /*         var hd = db.HoaDonBanHangs.FirstOrDefault(x => x.IDHoaDon == db.HoaDonBanHangs.Where(y => y.IDPhong == idp).Max(z => z.IDPhong));*/
@@ -497,6 +499,11 @@ namespace QUANLIKARAOKE.VIEW
             result = result.Trim();
             if (isNegative) result = "Âm " + result;
             return result + (suffix ? " đồng chẵn" : "");
+        }
+
+        private void txtphong_Click(object sender, EventArgs e)
+        {
+
         }
     }
          

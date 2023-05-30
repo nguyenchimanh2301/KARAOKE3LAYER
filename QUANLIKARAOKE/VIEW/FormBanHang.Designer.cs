@@ -50,6 +50,7 @@
             this.dvgls = new System.Windows.Forms.DataGridView();
             this.pd1 = new System.Drawing.Printing.PrintDocument();
             this.pdd1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvmathang)).BeginInit();
             this.panelorder.SuspendLayout();
@@ -63,6 +64,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtphong);
             this.panel1.Controls.Add(this.dgvmathang);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
@@ -74,11 +76,12 @@
             // txtphong
             // 
             this.txtphong.AutoSize = true;
-            this.txtphong.Location = new System.Drawing.Point(197, 20);
+            this.txtphong.Location = new System.Drawing.Point(162, 22);
             this.txtphong.Name = "txtphong";
             this.txtphong.Size = new System.Drawing.Size(46, 13);
             this.txtphong.TabIndex = 2;
             this.txtphong.Text = "PHÒNG";
+            this.txtphong.Click += new System.EventHandler(this.txtphong_Click);
             // 
             // dgvmathang
             // 
@@ -257,6 +260,15 @@
             this.pdd1.Name = "pdd1";
             this.pdd1.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(204, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "-TRẠNG THÁI";
+            // 
             // FormBanHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -304,5 +316,6 @@
         private System.Windows.Forms.DataGridView dvgls;
         private System.Drawing.Printing.PrintDocument pd1;
         private System.Windows.Forms.PrintPreviewDialog pdd1;
+        private System.Windows.Forms.Label label1;
     }
 }
