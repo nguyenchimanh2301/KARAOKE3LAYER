@@ -43,9 +43,10 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtsum = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panelorder.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -112,7 +113,7 @@
             this.panelorder.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelorder.Location = new System.Drawing.Point(0, 0);
             this.panelorder.Name = "panelorder";
-            this.panelorder.Size = new System.Drawing.Size(1033, 120);
+            this.panelorder.Size = new System.Drawing.Size(1087, 120);
             this.panelorder.TabIndex = 5;
             // 
             // comboBox1
@@ -179,9 +180,9 @@
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.Controls.Add(this.txtsum);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 522);
+            this.panel1.Location = new System.Drawing.Point(0, 584);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1033, 47);
+            this.panel1.Size = new System.Drawing.Size(1087, 47);
             this.panel1.TabIndex = 7;
             // 
             // txtsum
@@ -193,19 +194,21 @@
             this.txtsum.TabIndex = 0;
             this.txtsum.Text = "tong";
             // 
-            // panel2
+            // dataGridView1
             // 
-            this.panel2.Location = new System.Drawing.Point(0, 120);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1033, 396);
-            this.panel2.TabIndex = 8;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 120);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(1087, 464);
+            this.dataGridView1.TabIndex = 8;
             // 
             // FormtThongke
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1033, 569);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(1087, 631);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelorder);
             this.Name = "FormtThongke";
@@ -215,6 +218,7 @@
             this.panelorder.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,6 +240,6 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label txtsum;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

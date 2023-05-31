@@ -27,8 +27,7 @@ namespace QUANLIKARAOKE.VIEW
         string nhanvien = "admin";
         private int tabindex = 0;
         private int idmathang = 0;
-
-
+        DateTime? time;
 
         public void FormBanHang_Load(object sender, EventArgs e)
         {
@@ -69,7 +68,9 @@ namespace QUANLIKARAOKE.VIEW
             img.Images.Add(Properties.Resources.singing);
 
             l.LargeImageList = img;
+
             l.SelectedIndexChanged += lv_SelectedIndexChanged;
+            maskkt.ValidatingType = typeof(System.DateTime);
             var dsp = db.Phongs.Where(X => X.IDLoaiPhong == lp);
             foreach (var ph in dsp)
             {
@@ -84,7 +85,6 @@ namespace QUANLIKARAOKE.VIEW
                 }
             }
             tabct1.TabPages[tab].Controls.Add(l);
-
         }
 
 
@@ -145,11 +145,11 @@ namespace QUANLIKARAOKE.VIEW
                 {
                     /*         var hd = db.HoaDonBanHangs.FirstOrDefault(x => x.IDHoaDon == db.HoaDonBanHangs.Where(y => y.IDPhong == idp).Max(z => z.IDPhong));*/
                     var id = db.HoaDonBanHangs.FirstOrDefault(y => y.IDPhong == idp);
-                    var hd = db.HoaDonBanHangs.FirstOrDefault(x => x.IDHoaDon == id.IDHoaDon);
+                    var hd = db.HoaDonBanHangs.OrderByDescending(x => x.IDHoaDon).FirstOrDefault();
                     idhd = hd.IDHoaDon;
                     timer1.Enabled = false;
-                    maskbd.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-                    maskkt.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+                    maskbd.Text = Convert.ToDateTime(hd.ThoiGianBDau).ToString("dd/MM/yyyy HH:mm");
+                    maskkt.Text = Convert.ToDateTime(hd.ThoiGianKThuc).ToString("dd/MM/yyyy HH:mm");
                     showmathang();
                 }
                 else
@@ -228,7 +228,7 @@ namespace QUANLIKARAOKE.VIEW
                 o.IDPhong = idp;
                 o.NguoiBan = nhanvien;
                 o.ThoiGianBDau = DateTime.ParseExact(maskbd.Text, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                o.ThoiGianKThuc = DateTime.ParseExact(maskbd.Text, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                o.ThoiGianKThuc = DateTime.ParseExact(maskkt.Text, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
                 o.DonGiaPhong = lp.DonGia;
                 o.Nguoitao = nhanvien;
                 db.HoaDonBanHangs.InsertOnSubmit(o);
@@ -238,9 +238,9 @@ namespace QUANLIKARAOKE.VIEW
                 db.SubmitChanges();
                 loaddata(idlp, tabindex);
                 MessageBox.Show("ĐẶT PHÒNG THÀNH CÔNG", "Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show("ĐẶT PHÒNG THẤT BẠI", "Chú ý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -252,8 +252,7 @@ namespace QUANLIKARAOKE.VIEW
             try
             {
                 var o = db.HoaDonBanHangs.SingleOrDefault(x=>x.IDHoaDon==idhd);
-               
-                o.ThoiGianKThuc = DateTime.ParseExact(maskkt.Text, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                maskkt.Text = o.ThoiGianKThuc.ToString();
                 db.SubmitChanges();
                 var p = db.Phongs.SingleOrDefault(x => x.ID == idp);
                 p.TrangThai = 0;
@@ -350,7 +349,7 @@ namespace QUANLIKARAOKE.VIEW
             e.Graphics.DrawString(String.Format("Giờ bắt đầu :{0}",((DateTime)hd.ThoiGianBDau).ToString("dd/MM/yyyy HH:mm")), new Font("Courier New", 12, FontStyle.Bold), Brushes.Black, new Point(10,y));
             e.Graphics.DrawString(String.Format("Giờ kết thúc :{0}", ((DateTime)hd.ThoiGianKThuc).ToString("dd/MM/yyyy HH:mm")), new Font("Courier New", 12, FontStyle.Bold), Brushes.Black, new Point(w/2, y));
             y += 20;
-            int sum = 0;
+            double sum = 0;
             var tgsd = ((DateTime)hd.ThoiGianKThuc - (DateTime)hd.ThoiGianBDau).TotalMinutes;
             var gio = (int)(tgsd / 60);
             var phut = tgsd % 60;
@@ -382,6 +381,7 @@ namespace QUANLIKARAOKE.VIEW
                      };
             int i = 1;
             y += 20;
+            double tong = 0;
             foreach (var item in rs)
             {
                 e.Graphics.DrawString(String.Format("{0}",i++), new Font("Courier New", 12, FontStyle.Bold), Brushes.Black, new Point(10, y));
@@ -390,18 +390,21 @@ namespace QUANLIKARAOKE.VIEW
                 e.Graphics.DrawString(String.Format("{0:N0}", item.dg), new Font("Courier New", 12, FontStyle.Bold), Brushes.Black, new Point(w / 2 + 100, y));
                 e.Graphics.DrawString(String.Format("{0:N0}", item.thanhtien), new Font("Courier New", 12, FontStyle.Bold), Brushes.Black, new Point(w - 200, y));
                 y += 20;
+                tong += Convert.ToDouble(item.thanhtien);
             }
+            double tt = sum + tong;
+
             y += 40;
             p1 = new Point(10, y);
             p2 = new Point(w - 10, y);
             e.Graphics.DrawLine(pen, p1, p2);
             y += 20;
-            e.Graphics.DrawString(String.Format("Tổng tiền: {0:N0} VNĐ",sum), new Font("Courier New", 12, FontStyle.Bold), Brushes.Black, new Point(w - 280, y));
+            e.Graphics.DrawString(String.Format("Tổng tiền: {0:N0} VNĐ", tt), new Font("Courier New", 12, FontStyle.Bold), Brushes.Black, new Point(w - 280, y));
             y += 20;
             y += 40;
             p1 = new Point(10, y);
             p2 = new Point(w - 10, y);
-            e.Graphics.DrawString(String.Format("Thành chữ: {0}", NumberToText(sum)), new Font("Courier New", 12, FontStyle.Bold), Brushes.Black, new Point(10, y));
+            e.Graphics.DrawString(String.Format("Thành chữ: {0}", NumberToText(tt)), new Font("Courier New", 12, FontStyle.Bold), Brushes.Black, new Point(10, y));
 
         }
 

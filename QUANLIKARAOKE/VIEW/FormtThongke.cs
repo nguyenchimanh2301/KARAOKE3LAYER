@@ -67,10 +67,10 @@ namespace QUANLIKARAOKE.VIEW
         public int total;
         private void txtready_Click(object sender, EventArgs e)
         {
-            panel2.Controls.Clear();
+         /*   panel2.Controls.Clear();
             CartesianChart chart = new CartesianChart();
             CartesianChart chart1 = new CartesianChart();
-            CartesianChart chart3 = new CartesianChart();
+            CartesianChart chart3 = new CartesianChart();*/
 
 
             r = null;
@@ -94,7 +94,7 @@ namespace QUANLIKARAOKE.VIEW
                         {
                             key = comboBox1.SelectedValue.ToString();
                             r = thongkehang(tungay, toingay, key);
-                            chart.Series.Clear();
+                          /*  chart.Series.Clear();
                             Axis axisX = new Axis
                             {
                                 Title = "Tên dữ liệu",
@@ -121,12 +121,12 @@ namespace QUANLIKARAOKE.VIEW
                             chart.AxisX.Add(axisX);
                             chart.Width = panel2.Width;
                             chart.Height = panel2.Height;
-                            chart.Parent = panel2;
+                            chart.Parent = panel2;*/
                         }
                         else
                         {
                             r = thongkehang(tungay, toingay, null);
-                            Axis axisX = new Axis
+                           /* Axis axisX = new Axis
                             {
                                 Title = "Tên dữ liệu",
                                 Labels = new List<string>()  // Khởi tạo axisX.Labels là một List<string>
@@ -152,7 +152,7 @@ namespace QUANLIKARAOKE.VIEW
                             chart.AxisX.Add(axisX);
                             chart.Width = panel2.Width;
                             chart.Height = panel2.Height;
-                            chart.Parent = panel2;
+                            chart.Parent = panel2;*/
                         }
                     }
                     else if (rp.Checked)
@@ -162,7 +162,7 @@ namespace QUANLIKARAOKE.VIEW
                             key = comboBox1.SelectedValue.ToString();
                             /*dgvtk.DataSource = null;*/
                             r = thongkephong(tungay, toingay, key);
-                            chart.Series.Clear();
+                           /* chart.Series.Clear();
                             Axis axisX = new Axis
                             {
                                 Title = "Tên dữ liệu",
@@ -189,12 +189,12 @@ namespace QUANLIKARAOKE.VIEW
                             chart.AxisX.Add(axisX);
                             chart.Width = panel2.Width;
                             chart.Height = panel2.Height;
-                            chart.Parent = panel2;
+                            chart.Parent = panel2;*/
                         }
                         else
                         {
                             r = thongkephong(tungay, toingay, null);
-                            chart.Series.Clear();
+                            /*chart.Series.Clear();
                             Axis axisX = new Axis
                             {
                                 Title = "Tên dữ liệu",
@@ -221,7 +221,7 @@ namespace QUANLIKARAOKE.VIEW
                             chart1.AxisX.Add(axisX);
                             chart1.Width = panel2.Width;
                             chart1.Height = panel2.Height;
-                            chart1.Parent = panel2;
+                            chart1.Parent = panel2;*/
 
                         }
                     }
@@ -229,7 +229,7 @@ namespace QUANLIKARAOKE.VIEW
                     {
                         r = thongkephong(tungay, toingay,null);
                         r.AddRange(thongkehang(tungay, toingay,null));
-                        chart.Series.Clear();
+                       /* chart.Series.Clear();
                         Axis axisX = new Axis
                         {
                             Title = "Tên dữ liệu",
@@ -255,14 +255,14 @@ namespace QUANLIKARAOKE.VIEW
                         chart1.AxisX.Add(axisX);
                         chart1.Width = panel2.Width;
                         chart1.Height = panel2.Height;
-                        chart1.Parent = panel2;
+                        chart1.Parent = panel2;*/
 
 
                     }
                 }
                 var sum = r.Sum(x => x.ThanhTien);
                 txtsum.Text = string.Format("Tổng tiền : {0:N0} VNĐ", sum);
-                /* dgvtk.DataSource = r;*/
+                dataGridView1.DataSource = r;
 
             }
             catch (Exception)
@@ -271,13 +271,21 @@ namespace QUANLIKARAOKE.VIEW
                 MessageBox.Show("Thời gian không hợp lệ", "Chú Ý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-      /*      this.Controls.Add(chart);*/
+            /*      this.Controls.Add(chart);*/
+            dataGridView1.Columns["thanhtien"].HeaderText = "Thành tiền";
+            dataGridView1.Columns["mathang"].HeaderText = "Tên Mặt Hàng";
+            dataGridView1.Columns["mathang"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns["thanhtien"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns["thanhtien"].DefaultCellStyle.Format = "N0";
+            dataGridView1.Columns["DG"].DefaultCellStyle.Format = "N0";
+            dataGridView1.Columns["ID"].Visible = false;
+
 
 
         }
         public List<ListTK> thongkephong(DateTime tungay,DateTime toingay,string key)
         {
-            var rs = from h in db.HoaDonBanHangs.Where(x => x.ThoiGianKThuc != null && x.ThoiGianBDau>=tungay && x.ThoiGianBDau<=toingay)
+            var rs = from h in db.HoaDonBanHangs.Where(x => x.ThoiGianKThuc != null && x.ThoiGianBDau>=tungay && x.ThoiGianBDau<=toingay&& ((DateTime)x.ThoiGianKThuc - (DateTime)x.ThoiGianBDau).TotalHours>0) 
                      join p in db.Phongs on h.IDPhong equals p.ID
                      select new ListTK
                      {
@@ -296,7 +304,8 @@ namespace QUANLIKARAOKE.VIEW
 
             }
             return rs.ToList();
-           
+          
+
         }
         public List<ListTK> thongkehang(DateTime tungay, DateTime toingay,string key)
         {
