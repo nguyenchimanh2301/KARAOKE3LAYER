@@ -260,6 +260,7 @@ namespace QUANLIKARAOKE.VIEW
                 MessageBox.Show("THANH TOÁN PHÒNG THÀNH CÔNG", "Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 loaddata(idlp, tabindex);
                 idhd = o.IDHoaDon;
+                showls();
                 Inhoadon();
             }
             catch (Exception)
@@ -271,6 +272,7 @@ namespace QUANLIKARAOKE.VIEW
         public void showls()
         {
 
+            dvgls.DataSource = null;
             var ls2 = from hd in db.HoaDonBanHangs.Where(x => x.ThoiGianKThuc != null)
                        join ct in db.ChiTietHoaDonBans
                        on hd.IDHoaDon equals ct.IDHoaDon
@@ -302,7 +304,7 @@ namespace QUANLIKARAOKE.VIEW
                          sotien = (int)((TimeSpan)((DateTime)hd.ThoiGianKThuc - (DateTime)hd.ThoiGianBDau)).TotalHours * hd.DonGiaPhong+ct.Sum(x=>x.SL*x.DonGiaBan)
 
                      };
-            
+
             dvgls.DataSource = ls;
             dvgls.Columns["idhoadon"].Visible = false;
             dvgls.Columns["phong"].HeaderText = "Phòng";
@@ -505,6 +507,31 @@ namespace QUANLIKARAOKE.VIEW
         }
 
         private void txtphong_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvdadung_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                /*idhd = int.Parse(dgvdadung.Rows[e.RowIndex].Cells["mahang"].Value.ToString());*/
+                var ct = db.ChiTietHoaDonBans.FirstOrDefault(x => x.IDMatHang == int.Parse(dgvdadung.Rows[e.RowIndex].Cells["mahang"].Value.ToString()) && x.IDHoaDon == idhd);
+                if(MessageBox.Show("Bạn thật sự muốn xóa mặt hàng  " + dgvdadung.Rows[e.RowIndex].Cells["tenhang"].Value.ToString() + "?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes){
+                    db.ChiTietHoaDonBans.DeleteOnSubmit(ct);
+                    db.SubmitChanges();
+                    MessageBox.Show("Xóa thành công");
+                    showdata();
+                    showmathang();
+;                }
+            }
+            else
+            {
+                MessageBox.Show("Chọn dữ liệu");
+            }
+        }
+
+        private void dgvdadung_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

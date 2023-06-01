@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBanHang));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtphong = new System.Windows.Forms.Label();
             this.dgvmathang = new System.Windows.Forms.DataGridView();
             this.panelorder = new System.Windows.Forms.Panel();
@@ -50,7 +51,6 @@
             this.dvgls = new System.Windows.Forms.DataGridView();
             this.pd1 = new System.Drawing.Printing.PrintDocument();
             this.pdd1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvmathang)).BeginInit();
             this.panelorder.SuspendLayout();
@@ -72,6 +72,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(448, 745);
             this.panel1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(204, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "-TRẠNG THÁI";
             // 
             // txtphong
             // 
@@ -133,6 +142,8 @@
             this.dgvdadung.Name = "dgvdadung";
             this.dgvdadung.Size = new System.Drawing.Size(485, 145);
             this.dgvdadung.TabIndex = 9;
+            this.dgvdadung.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvdadung_CellContentClick);
+            this.dgvdadung.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvdadung_CellDoubleClick);
             // 
             // button1
             // 
@@ -259,15 +270,6 @@
             this.pdd1.Icon = ((System.Drawing.Icon)(resources.GetObject("pdd1.Icon")));
             this.pdd1.Name = "pdd1";
             this.pdd1.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(204, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "-TRẠNG THÁI";
             // 
             // FormBanHang
             // 
